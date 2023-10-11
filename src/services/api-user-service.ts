@@ -1,6 +1,4 @@
 import axios from "axios"
-import { Dispatch } from "react";
-import { UserActionTypes, UserActions } from "../store/reducers/userReducer/types";
 
 const instance = axios.create({
     baseURL: "https://localhost:5001/api/User",
@@ -136,21 +134,7 @@ export async function GetAll(){
   } )
   return data
 }
-
-export async function GetAllRoles(){
-  const data = await User.getallroles()
-  .then((response) => {
-      return {
-          response
-      }
-  })
-  .catch((error) => {
-      return error.response
-  } )
-  return data
-}
-
-function refreshAccessToken() {
+export function refreshAccessToken() {
     return instance.post("/RefreshToken", {
       token: getAccessToken(),
       refreshToken: getRefreshToken(),

@@ -30,8 +30,6 @@ const validationSchema = Yup.object().shape({
         .required("Required"),
 });
 
-//const roles = ["Administrator", "User"];
-
 const defaultTheme = createTheme();
 
 const CreateUser = () => {
@@ -54,8 +52,7 @@ const CreateUser = () => {
             CreateUser(values);
         },
     });
-    const { allRoles } = useTypedSelector((store) => store.UserReducer);
-    console.log(allRoles)
+    const { allRoles } = useTypedSelector((store) => store.RoleReducer);
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
