@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 
 // Import services
-import { login, setAccessToken, setRefreshToken, logout, removeTokens, GetAll, AddUser } from "../../../services/api-user-service";
+import { login, setAccessToken, setRefreshToken, logout, removeTokens, GetAll, AddUser, DeleteUserById } from "../../../services/api-user-service";
 
 export const LoginUser = (user: any) => {
     return async (dispatch: Dispatch<UserActions>) => {
@@ -71,6 +71,19 @@ export const CreateUser = (user: any) => {
         catch (ex) {
             dispatch({
                 type: UserActionTypes.SERVER_ERROR, payload: "Unknown error!"
+            });
+        }
+    }
+}
+
+export const DeleteById = (user: any) => {
+    return async (dispatch: Dispatch<UserActions>) => {
+        await DeleteUserById(user);
+        const data = await GetAll();
+        const {response} = data;
+        if (response.success) {
+            dispatch({
+                type: UserActionTypes.GETALLUSERS_REQUEST, payload: { allUsers: response.payload, message: response.message }
             });
         }
     }

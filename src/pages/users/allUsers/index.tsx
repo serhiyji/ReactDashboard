@@ -1,21 +1,30 @@
+import React from "react";
+//import { withRouter, Link } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useEffect } from "react";
 import { useActions } from "../../../hooks/useActions";
-
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@mui/material";
 
 interface UserData {
     id: string,
     firstName: string,
-    lastName : string,
+    lastName: string,
     email: string,
-    emailConfirmed: string,
+    emailConfirmed: boolean,
     lockedOut: string,
     role: string,
 }
 
 const AllUsers = () => {
-    const { GetAllUsers } = useActions();
+    const { GetAllUsers, DeleteById } = useActions();
+
+    const DeleteUser = (id: any, email: any) => {
+        const user = {
+            Id: id,
+            Email: email
+        };
+        DeleteById(user);
+    }
 
     useEffect(() => {
         GetAllUsers();
@@ -33,6 +42,7 @@ const AllUsers = () => {
                         <TableCell align="center">EmailConfirmed</TableCell>
                         <TableCell align="center">LockedOut</TableCell>
                         <TableCell align="center">Role</TableCell>
+                        <TableCell align="center">Delete</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -44,6 +54,7 @@ const AllUsers = () => {
                             <TableCell align="center">{user.emailConfirmed ? 'true' : 'false'}</TableCell>
                             <TableCell align="center">{user.lockedOut ? user.lockedOut : '-'}</TableCell>
                             <TableCell align="center">{user.role}</TableCell>
+                            <TableCell align="center"><Button onClick={()=>DeleteUser(user.id, user.email)}>Delete</Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

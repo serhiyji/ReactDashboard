@@ -7,8 +7,7 @@ const initialState: UserState = {
   error: null,
   isAuth: false,
   selectedUser: null,
-  allUsers: [],
-  allRoles: []
+  allUsers: []
 };
 
 const UserReducer = (state = initialState, action: UserActions): UserState => {
@@ -33,8 +32,6 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
       return {...state, loading: false, message: action.payload.message, allUsers: action.payload.allUsers }
     case UserActionTypes.CREATEUSER_SUCCESS:
       return {...state, loading: false, message: action.payload.message}
-    case UserActionTypes.GETALLROLES_SUCCESS:
-      return {...state, loading: false, allRoles: action.payload.allRoles}
     case UserActionTypes.LOGOUT_USER:
       return {
         user: {},
@@ -43,8 +40,7 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         error: null,
         isAuth: false,
         selectedUser: null,
-        allUsers: [],
-        allRoles: []
+        allUsers: []
       };
     default:
       return state;

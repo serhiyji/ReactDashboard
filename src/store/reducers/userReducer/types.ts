@@ -7,8 +7,7 @@ export interface UserState{
     error: null | string,
     isAuth: boolean,
     selectedUser: any,
-    allUsers: [],
-    allRoles: []
+    allUsers: []
 }
 
 export enum UserActionTypes {
@@ -19,8 +18,7 @@ export enum UserActionTypes {
     SERVER_ERROR = "SERVER_ERROR",
     LOGOUT_USER = "LOGOUT_USER",
     GETALLUSERS_REQUEST = "GETALLUSERS_REQUEST",
-    CREATEUSER_SUCCESS = "CREATEUSER_SUCCESS",
-    GETALLROLES_SUCCESS = "GETALLROLES_SUCCESS"
+    CREATEUSER_SUCCESS = "CREATEUSER_SUCCESS"
 }
 
 interface StartRequestAction {
@@ -60,9 +58,4 @@ interface CreateUserAction {
     payload: any
 }
 
-interface GetAllRolesAction {
-    type: UserActionTypes.GETALLROLES_SUCCESS,
-    payload: any
-}
-
-export type UserActions = | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction | GetAllUsersAction | CreateUserAction | GetAllRolesAction
+export type UserActions = | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction | GetAllUsersAction | CreateUserAction
