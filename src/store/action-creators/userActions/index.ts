@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 
 // Import services
-import { login, setAccessToken, setRefreshToken, logout, removeTokens, GetAll, AddUser, DeleteUserById } from "../../../services/api-user-service";
+import { login, setAccessToken, setRefreshToken, logout, removeTokens, GetAll, AddUser, DeleteUserById, Edituser, GetbyId } from "../../../services/api-user-service";
 
 export const LoginUser = (user: any) => {
     return async (dispatch: Dispatch<UserActions>) => {
@@ -65,7 +65,7 @@ export const CreateUser = (user: any) => {
         try {
             await AddUser(user);
             dispatch({
-                type: UserActionTypes.CREATEUSER_SUCCESS, payload: {message: "User has been added"}
+                type: UserActionTypes.CREATEUSER_SUCCESS, payload: { message: "User has been added" }
             });
         }
         catch (ex) {
@@ -79,11 +79,23 @@ export const CreateUser = (user: any) => {
 export const DeleteById = (user: any) => {
     return async (dispatch: Dispatch<UserActions>) => {
         await DeleteUserById(user);
-        const data = await GetAll();
-        const {response} = data;
+        GetAllUsers()(dispatch)
+    }
+}
+
+export const EditUser = (user:any) => {
+    return async (dispatch: Dispatch<UserActions>) => {
+        await Edituser(user);
+    }
+}
+
+export const GetUserById = (userId: string) => {
+    return async (dispatch: Dispatch<UserActions>) => {
+        const data = await GetbyId(userId);
+        const { response } = data;
         if (response.success) {
             dispatch({
-                type: UserActionTypes.GETALLUSERS_REQUEST, payload: { allUsers: response.payload, message: response.message }
+                type: UserActionTypes.GETUSERBYID_SUCCESS, payload: { selectedUser: response.payload }
             });
         }
     }

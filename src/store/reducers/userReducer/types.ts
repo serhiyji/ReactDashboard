@@ -18,7 +18,9 @@ export enum UserActionTypes {
     SERVER_ERROR = "SERVER_ERROR",
     LOGOUT_USER = "LOGOUT_USER",
     GETALLUSERS_REQUEST = "GETALLUSERS_REQUEST",
-    CREATEUSER_SUCCESS = "CREATEUSER_SUCCESS"
+    CREATEUSER_SUCCESS = "CREATEUSER_SUCCESS",
+    EDITUSER_SUCCESS = "EDITUSER_SUCCESS",
+    GETUSERBYID_SUCCESS = "GETUSERBYID_SUCCESS"
 }
 
 interface StartRequestAction {
@@ -58,4 +60,14 @@ interface CreateUserAction {
     payload: any
 }
 
-export type UserActions = | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction | GetAllUsersAction | CreateUserAction
+interface EditUserAction {
+    type: UserActionTypes.EDITUSER_SUCCESS,
+    payload: any
+}
+
+interface GetUserByIdAction {
+    type: UserActionTypes.GETUSERBYID_SUCCESS,
+    payload: any
+}
+
+export type UserActions = | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction | GetAllUsersAction | CreateUserAction | EditUserAction | GetUserByIdAction

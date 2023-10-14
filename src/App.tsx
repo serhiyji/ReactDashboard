@@ -9,6 +9,7 @@ import DefaultPage from "./pages/dafaultPage";
 import AllUsers from "./pages/users/allUsers";
 import UserInformation from "./components/userinformation";
 import CreateUser from "./pages/users/createuser";
+import EditUser from "./pages/users/edituser";
 
 function App() {
   const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -23,6 +24,7 @@ function App() {
               <Route path="user" element={<UserInformation/>}/>
               <Route path="users" element={<AllUsers/>}/>
               <Route path="createuser" element={<CreateUser/>}/>
+              <Route path="edituser" element={<EditUser/>}/>
             </Route>
           )}
           {user.role === "User" && (

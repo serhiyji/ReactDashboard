@@ -80,7 +80,9 @@ const User = {
     logout: (userId: string) => requests.get(`/logout?userId=` + userId),
     getallusers: () => requests.get("/getall"),
     createuser: (user: any) => requests.post("/createuser", user),
-    deleteuser: (userId: any) => requests.post("/deleteuser", userId)
+    deleteuser: (userId: any) => requests.post("/deleteuser", userId),
+    edituser: (user: any) => requests.post("/updatemaininfouser", user),
+    getbyid: (userId: string) => requests.get("/getbyid?userId=" + userId)
 }
 
 export async function login(user: any) {
@@ -137,6 +139,32 @@ export async function GetAll() {
 
 export async function DeleteUserById(user: any) {
     const data = await User.deleteuser(user)
+        .then((response) => {
+            return {
+                response
+            }
+        })
+        .catch((error) => {
+            return error.response
+        })
+    return data
+}
+
+export async function Edituser(user: any) {
+    const data = await User.edituser(user)
+        .then((response) => {
+            return {
+                response
+            }
+        })
+        .catch((error) => {
+            return error.response
+        })
+    return data
+}
+
+export async function GetbyId(userId: string) {
+    const data = await User.getbyid(userId)
         .then((response) => {
             return {
                 response
