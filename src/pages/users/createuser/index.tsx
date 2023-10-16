@@ -10,6 +10,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -33,7 +35,7 @@ const validationSchema = Yup.object().shape({
 const defaultTheme = createTheme();
 
 const CreateUser = () => {
-
+    const [ isRedirect, setIsRedirect ] = useState(false);
     const { CreateUser, GetallRoles } = useActions();
     useEffect(()=>{
         GetallRoles();
@@ -50,9 +52,14 @@ const CreateUser = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             CreateUser(values);
+            setIsRedirect(true);
         },
     });
     const { allRoles } = useTypedSelector((store) => store.RoleReducer);
+    if(isRedirect)
+    {
+        return <Navigate to="/dashboard/users"/>
+    }else
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">

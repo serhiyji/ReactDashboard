@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 
 // Import services
-import { login, setAccessToken, setRefreshToken, logout, removeTokens, GetAll, AddUser, DeleteUserById, Edituser, GetbyId } from "../../../services/api-user-service";
+import { login, setAccessToken, setRefreshToken, logout, removeTokens, GetAll, AddUser, DeleteUserById, Edituser, GetbyId, setSelectedUser, getSelectedUser } from "../../../services/api-user-service";
 
 export const LoginUser = (user: any) => {
     return async (dispatch: Dispatch<UserActions>) => {
@@ -33,7 +33,7 @@ export const LoginUser = (user: any) => {
 export const GetAllUsers = () => {
     return async (dispatch: Dispatch<UserActions>) => {
         const data = await GetAll();
-        const {response} = data;
+        const { response } = data;
         if (response.success) {
             dispatch({
                 type: UserActionTypes.GETALLUSERS_REQUEST, payload: { allUsers: response.payload, message: response.message }
@@ -83,7 +83,7 @@ export const DeleteById = (user: any) => {
     }
 }
 
-export const EditUser = (user:any) => {
+export const EditUser = (user: any) => {
     return async (dispatch: Dispatch<UserActions>) => {
         await Edituser(user);
     }
@@ -100,3 +100,29 @@ export const GetUserById = (userId: string) => {
         }
     }
 }
+
+export const SetSelectedUserInfo = (user: any) => {
+    return async (dispatch: Dispatch<UserActions>) => {
+        setSelectedUser(user);
+    }
+}
+
+export const GetSelectedUserInfo = () => {
+    return async (dispatch: Dispatch<UserActions>) => {
+        const selecteduser = getSelectedUser();
+        dispatch({
+            type: UserActionTypes.GETUSERBYID_SUCCESS, payload: { selectedUser: selecteduser }
+        });
+    }
+}
+
+export const SelectdUser = (user: any) => {
+    return async (dispatch: Dispatch<UserActions>) => {
+        dispatch({ type: UserActionTypes.GETUSERBYID_SUCCESS, payload: {selectedUser: user} });
+        setSelectedUser(user);
+    };
+};
+
+export const SelectUser = (selectedUser: any, dispatch: Dispatch<UserActions> ) => {
+    dispatch({ type: UserActionTypes.GETUSERBYID_SUCCESS, payload: {selectedUser: selectedUser} });
+};

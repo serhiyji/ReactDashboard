@@ -6,23 +6,28 @@ import "./index.css";
 import App from "./App";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
-import { getAccessToken } from "./services/api-user-service";
+import { getAccessToken, getSelectedUser } from "./services/api-user-service";
 import { store } from "./store";
-import { AuthUser } from "./store/action-creators/userActions";
+import { AuthUser, SelectUser } from "./store/action-creators/userActions";
 
 const token = getAccessToken();
 if (token) {
-  AuthUser(token, "Data loaded from lockalStorrage", store.dispatch);
+    AuthUser(token, "Data loaded from lockalStorrage", store.dispatch);
+}
+
+const selectedUser = getSelectedUser();
+if (selectedUser) {
+    SelectUser(selectedUser, store.dispatch);
 }
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
 root.render(
-  <Provider store={store}>
-    <Router>
-      <ToastContainer autoClose={5000} />
-      <App />
-    </Router>
-  </Provider>
+    <Provider store={store}>
+        <Router>
+            <ToastContainer autoClose={5000} />
+            <App />
+        </Router>
+    </Provider>
 );

@@ -1,9 +1,10 @@
 import React from "react";
-//import { withRouter, Link } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useEffect } from "react";
 import { useActions } from "../../../hooks/useActions";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@mui/material";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 interface UserData {
     id: string,
@@ -16,7 +17,14 @@ interface UserData {
 }
 
 const AllUsers = () => {
-    const { GetAllUsers, DeleteById } = useActions();
+    const { GetAllUsers, DeleteById, SelectdUser } = useActions();
+    const [ isRedirect, setIsRedirect ] = useState(false);
+    const { allUsers } = useTypedSelector((store) => store.UserReducer);
+    
+    const EditUserAc = (user: any) => {
+        SelectdUser(user);
+        setIsRedirect(true);
+    }
 
     const DeleteUser = (id: any, email: any) => {
         const user = {
@@ -30,7 +38,10 @@ const AllUsers = () => {
         GetAllUsers();
     }, []);
 
-    const { allUsers } = useTypedSelector((store) => store.UserReducer);
+    if(isRedirect)
+    {
+        return <Navigate to="/dashboard/edituser"/>
+    }else
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -43,6 +54,7 @@ const AllUsers = () => {
                         <TableCell align="center">LockedOut</TableCell>
                         <TableCell align="center">Role</TableCell>
                         <TableCell align="center">Delete</TableCell>
+                        <TableCell align="center">Edit</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -55,6 +67,7 @@ const AllUsers = () => {
                             <TableCell align="center">{user.lockedOut ? user.lockedOut : '-'}</TableCell>
                             <TableCell align="center">{user.role}</TableCell>
                             <TableCell align="center"><Button onClick={()=>DeleteUser(user.id, user.email)}>Delete</Button></TableCell>
+                            <TableCell align="center"><Button onClick={()=>EditUserAc(user)}></Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

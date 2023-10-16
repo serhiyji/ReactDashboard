@@ -30,17 +30,17 @@ const validationSchema = Yup.object().shape({
 const defaultTheme = createTheme();
 
 const EditUser = () => {
-    const userId = "3b9bdcaa-fa8f-44c1-98a5-d3b361b82621";
-    const { EditUser, GetUserById } = useActions();
+    const { EditUser } = useActions();
     
     const { selectedUser } = useTypedSelector((store) => store.UserReducer);
+    console.log("selected user" + selectedUser);
     const formik = useFormik({
         initialValues: {
-            id: selectedUser.id,
-            firstName: selectedUser ? selectedUser.firstName : "",
-            lastName: selectedUser ? selectedUser.lastName : "",
-            email: selectedUser ? selectedUser.email : "",
-            phoneNumber: selectedUser ? selectedUser.phoneNumber : ""
+            id: selectedUser?.id || "",
+            firstName: selectedUser?.firstName || "",
+            lastName: selectedUser?.lastName || "",
+            email: selectedUser?.email || "",
+            phoneNumber: selectedUser?.phoneNumber || ""
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -48,7 +48,6 @@ const EditUser = () => {
         },
     });
     useEffect(() => {
-        GetUserById(userId);
         formik.setValues({
             id: selectedUser.id,
             firstName: selectedUser.firstName,

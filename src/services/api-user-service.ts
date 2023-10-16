@@ -205,3 +205,21 @@ export function removeTokens() {
     window.localStorage.removeItem("accessToken")
     window.localStorage.removeItem("refreshToken")
 }
+
+export function setSelectedUser(user: any) {
+
+    user = JSON.stringify(user);
+
+    window.localStorage.setItem("selectedUser", user);
+
+}
+
+export function getSelectedUser() {
+
+    let selectedUser: any = window.localStorage.getItem("selectedUser");
+
+    selectedUser = JSON.parse(selectedUser);
+
+    return selectedUser;
+
+}
