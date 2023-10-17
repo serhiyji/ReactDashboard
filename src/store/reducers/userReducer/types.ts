@@ -6,7 +6,6 @@ export interface UserState{
     loading: boolean,
     error: null | string,
     isAuth: boolean,
-    idSelectedUser: any,
     selectedUser: any,
     allUsers: []
 }
@@ -21,8 +20,7 @@ export enum UserActionTypes {
     GETALLUSERS_REQUEST = "GETALLUSERS_REQUEST",
     CREATEUSER_SUCCESS = "CREATEUSER_SUCCESS",
     EDITUSER_SUCCESS = "EDITUSER_SUCCESS",
-    GETUSERBYID_SUCCESS = "GETUSERBYID_SUCCESS",
-    SETIDSELECTEDUSER = "SETIDSELECTEDUSER"
+    GETUSERBYID_SUCCESS = "GETUSERBYID_SUCCESS"
 }
 
 interface StartRequestAction {
@@ -72,9 +70,4 @@ interface GetUserByIdAction {
     payload: any
 }
 
-interface SetIdSselectedUserAction {
-    type: UserActionTypes.SETIDSELECTEDUSER,
-    payload: any
-}
-
-export type UserActions = | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction | GetAllUsersAction | CreateUserAction | EditUserAction | GetUserByIdAction | SetIdSselectedUserAction
+export type UserActions = | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction | GetAllUsersAction | CreateUserAction | EditUserAction | GetUserByIdAction

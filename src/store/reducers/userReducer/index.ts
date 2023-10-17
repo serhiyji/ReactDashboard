@@ -6,7 +6,6 @@ const initialState: UserState = {
   loading: false,
   error: null,
   isAuth: false,
-  idSelectedUser: null,
   selectedUser: {},
   allUsers: []
 };
@@ -37,8 +36,6 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
       return {...state, message: action.payload.message}
     case UserActionTypes.GETUSERBYID_SUCCESS:
       return {...state, selectedUser: action.payload.selectedUser}
-    case UserActionTypes.SETIDSELECTEDUSER:
-      return {...state, idSelectedUser: action.payload.idSelectedUser}
     case UserActionTypes.LOGOUT_USER:
       return {
         user: {},
@@ -46,7 +43,6 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         loading: false,
         error: null,
         isAuth: false,
-        idSelectedUser: null,
         selectedUser: null,
         allUsers: []
       };

@@ -10,6 +10,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -30,10 +33,10 @@ const validationSchema = Yup.object().shape({
 const defaultTheme = createTheme();
 
 const EditUser = () => {
-    const { EditUser } = useActions();
-    
+    const { EditUser, GetAllUsers } = useActions();
+    const [ isRedirect, setIsRedirect ] = useState(false);
     const { selectedUser } = useTypedSelector((store) => store.UserReducer);
-    console.log("selected user" + selectedUser);
+
     const formik = useFormik({
         initialValues: {
             id: selectedUser?.id || "",
@@ -45,6 +48,8 @@ const EditUser = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             EditUser(values);
+            GetAllUsers();
+            setIsRedirect(true);
         },
     });
     useEffect(() => {
@@ -56,7 +61,10 @@ const EditUser = () => {
             phoneNumber: selectedUser.phoneNumber
         });
     }, []);
-
+    if(isRedirect)
+    {
+        return <Navigate to="/dashboard/users"/>
+    }else
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
