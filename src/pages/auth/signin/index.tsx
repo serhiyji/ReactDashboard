@@ -127,9 +127,6 @@ export default function SignIn() {
               <Grid item xs>
                 <Link to="/">Forgot password?</Link>
               </Grid>
-              <Grid item>
-                <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
-              </Grid>
             </Grid>
           </Box>
         </Box>

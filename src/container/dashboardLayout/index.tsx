@@ -106,8 +106,7 @@ export default function DashboardLayout() {
   const { LogOut } = useActions();
 
   const Logout = () => {
-    const res = LogOut(user.Id);
-    console.log(res);
+    LogOut(user.Id);
   };
 
   const [open, setOpen] = React.useState(true);

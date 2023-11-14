@@ -1,7 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import SignIn from "./pages/auth/signin";
-import SignUp from "./pages/auth/signup";
 import { useTypedSelector } from "./hooks/useTypedSelector";
 import NotFound from "./pages/notFound";
 import DashboardLayout from "./container/dashboardLayout";
@@ -39,7 +38,6 @@ function App() {
 
       <Route path="/" element={<SignIn />} />
       <Route path="/signin" element={<SignIn/>} />
-      <Route path="/signup" element={<SignUp/>} />
       <Route path="/dashboard" element={<SignIn />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
